@@ -22,7 +22,7 @@ public class App {
 
 	public static void main(String[] args) throws AWTException {
 		driver = new ChromeDriver();
-		System.out.println("Hello World!");
+		System.out.println("源码地址：https://github.com/jhd147350/AutoRefreshBlueboxSensu");
 
 		LoginPage loginPage = new LoginPage(driver);
 		String username = args[0];
