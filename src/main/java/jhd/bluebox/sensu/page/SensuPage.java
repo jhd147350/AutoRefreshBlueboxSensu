@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,7 +56,6 @@ public class SensuPage extends BasePage {
 		try {
 			Thread.sleep(3 * 1000l);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		tickets.init(getData());
@@ -73,15 +73,15 @@ public class SensuPage extends BasePage {
 		});
 
 		while (true) {
-
 			try {
 				CountDownTextProgressBar.countdown();
-			} catch (InterruptedException e) {
+				int total = tickets.merge(getData());
+				System.out.println(new Date().toString() + " <-> total ： " + total);
+			} catch (Exception e) {
 				e.printStackTrace();
+				Mp3Player mp3Player=new Mp3Player();
+				mp3Player.playErr();
 			}
-
-			int total = tickets.merge(getData());
-			System.out.println(new Date().toString() + " <-> total ： " + total);
 		}
 	}
 }
