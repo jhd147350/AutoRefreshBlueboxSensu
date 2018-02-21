@@ -30,7 +30,6 @@ public class App {
 		// action.keyDown(Keys.CONTROL).sendKeys("t").keyUp(Keys.CONTROL).perform();
 		// 3
 		// driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
-		
 
 		LoginPage loginPage = new LoginPage(driver);
 		String username = args[0];
@@ -57,12 +56,12 @@ public class App {
 
 	public static void monitorSensu() throws AWTException {
 		// 认证成功后，要新开个标签，这里使用selenium的模拟按键不起作用，改用java自带的模拟按键
-		//Robot robot = new Robot();
-		//robot.keyPress(KeyEvent.VK_CONTROL);
-		//robot.keyPress(KeyEvent.VK_T);
-		//robot.keyRelease(KeyEvent.VK_CONTROL);
-		//robot.keyRelease(KeyEvent.VK_T);
-		//更好的处理方式，不需要浏览器保持置顶
+		// Robot robot = new Robot();
+		// robot.keyPress(KeyEvent.VK_CONTROL);
+		// robot.keyPress(KeyEvent.VK_T);
+		// robot.keyRelease(KeyEvent.VK_CONTROL);
+		// robot.keyRelease(KeyEvent.VK_T);
+		// 更好的处理方式，不需要浏览器保持置顶
 		JavascriptExecutor oJavaScriptExecutor = (JavascriptExecutor) driver;
 		oJavaScriptExecutor.executeScript("window.open();");
 
@@ -80,7 +79,4 @@ public class App {
 		}
 	}
 
-	// exception
-	// AWTException
-	//
 }
