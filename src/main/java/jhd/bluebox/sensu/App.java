@@ -46,6 +46,8 @@ public class App {
 					sensuPage.startMonitor();
 				} catch (Exception e) {
 					e.printStackTrace();
+					driver.close();
+					driver.quit();
 					Mp3Player mp3Player=new Mp3Player();
 					mp3Player.playErr();
 				}
