@@ -38,10 +38,10 @@ public class SensuPage extends BasePage {
 			if (tds != null && tds.size() >= 4) {// 1 2 5 4
 				String ID = tds.get(1).getText() + "/" + tds.get(2).getText() + "/" + tds.get(5).getText();
 				int existTime = Integer.valueOf(tds.get(4).getText());
-				//存在超过2分钟的工单需要记录，否则先忽略，因为很多类型的工单会短时间内自动关闭
+				// 存在超过2分钟的工单需要记录，否则先忽略，因为很多类型的工单会短时间内自动关闭
 				if (existTime >= 2) {
 					tickets.add(ID);
-				}else {
+				} else {
 					System.out.println("有一个新来的工单，存在时间小于2分钟，如果存在时间超过2分钟将会被统计");
 				}
 				// System.out.println(ID);
@@ -50,17 +50,14 @@ public class SensuPage extends BasePage {
 		return tickets;
 	}
 
-	public void startMonitor() {
+	public void startMonitor() throws Exception {
 		Tickets tickets = new Tickets();
-		// 休眠三秒，因为刚加载好页面就立刻获取数据，tbody里面的列数是0，无法初始化最终就有的工单数据
-		try {
-			Thread.sleep(3 * 1000l);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		// 休眠5秒，因为刚加载好页面就立刻获取数据，tbody里面的列数是0，无法初始化最终就有的工单数据
+
+		Thread.sleep(5 * 1000l);
+
 		tickets.init(getData());
 		tickets.setTicketListener(new TicketListener() {
-
 			public void onTicketOpen(String ticket) {
 				System.out.println("new ticket: " + ticket);
 				Mp3Player player = new Mp3Player();
@@ -73,15 +70,9 @@ public class SensuPage extends BasePage {
 		});
 
 		while (true) {
-			try {
-				CountDownTextProgressBar.countdown();
-				int total = tickets.merge(getData());
-				System.out.println(new Date().toString() + " <-> total ： " + total);
-			} catch (Exception e) {
-				e.printStackTrace();
-				Mp3Player mp3Player=new Mp3Player();
-				mp3Player.playErr();
-			}
+			CountDownTextProgressBar.countdown();
+			int total = tickets.merge(getData());
+			System.out.println(new Date().toString() + " <-> total ： " + total);
 		}
 	}
 }

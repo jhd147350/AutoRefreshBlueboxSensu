@@ -40,12 +40,14 @@ public class App {
 		secondAuthPage.auth();
 		secondAuthPage.setAuthListener(new AuthListener() {
 			public void onAuthSuc() {
+				//monitorSensu();
+				SensuPage sensuPage = new SensuPage(driver);
 				try {
-					monitorSensu();
-				} catch (AWTException e) {
-					Mp3Player mp3Player = new Mp3Player();
-					mp3Player.playErr();
+					sensuPage.startMonitor();
+				} catch (Exception e) {
 					e.printStackTrace();
+					Mp3Player mp3Player=new Mp3Player();
+					mp3Player.playErr();
 				}
 			}
 		});
@@ -54,6 +56,7 @@ public class App {
 		// driver.quit();
 	}
 
+	@Deprecated
 	public static void monitorSensu() throws AWTException {
 		// 认证成功后，要新开个标签，这里使用selenium的模拟按键不起作用，改用java自带的模拟按键
 		// Robot robot = new Robot();
@@ -75,7 +78,7 @@ public class App {
 			}
 			WebDriver window = driver.switchTo().window(it.next());
 			SensuPage sensuPage = new SensuPage(window);
-			sensuPage.startMonitor();
+			//sensuPage.startMonitor();
 		}
 	}
 
