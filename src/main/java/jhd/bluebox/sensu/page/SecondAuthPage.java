@@ -26,11 +26,14 @@ public class SecondAuthPage extends BasePage {
 				while (true) {
 					System.out.println("please press the key!");
 					String code = token.getAttribute("value");
-					if (code.length() >= 44) {// yubi key 会生成一个44位长的code
+					System.out.println("令牌：" + code);
+					//TODO 请不要直接在英文输入法下按yubi key，英文状态下yubi key会补充一个回车键去提交，这样下一步的提交就会找不到元素
+					if (code.length() == 44) {// yubi key 会生成一个44位长的code
+						System.out.println("令牌符合要求，进行下一步");
 						authButton.submit();
 						authListener.onAuthSuc();
 						System.out.println(code.length() + "<->" + code);
-						break;
+						return;
 					} else {
 						try {
 							Thread.sleep(500);
